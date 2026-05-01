@@ -200,20 +200,24 @@ Swagger UI: `http://localhost:8080/swagger-ui.html`
 **Request body:**
 ```json
 {
-  "name": "João Silva",
-  "email": "joao@email.com",
-  "password": "senha123",
-  "cpf": "123.456.789-00",
-  "phoneNumber": "11999999999"
+  "name": "string",
+  "cpf": "59835673300",
+  "cellphone": "15784368239582",
+  "email": "user@example.com",
+  "password": "stringst"
 }
 ```
 
 **Response `201 Created`:**
 ```json
 {
-  "message": "Usuário cadastrado com sucesso!"
+  "message": "string",
+  "name": "string",
+  "email": "string"
 }
 ```
+
+**Response `400 Bad Request`:** campos preenchidos incorretamente.
 </details>
 
 <details>
@@ -222,18 +226,38 @@ Swagger UI: `http://localhost:8080/swagger-ui.html`
 **Request body:**
 ```json
 {
-  "email": "joao@email.com",
-  "password": "senha123"
+  "email": "user@example.com",
+  "password": "string"
 }
 ```
 
 **Response `200 OK`:**
 ```json
 {
-  "token": "eyJhbGciOiJIUzI1NiJ9...",
-  "expiresAt": "2025-01-01T12:30:00"
+  "message": "string",
+  "email": "string",
+  "token": "string",
+  "tokenType": "string",
+  "expiresIn": 0
 }
 ```
+</details>
+
+<details>
+<summary><code>GET</code> <strong>/auth/my/profile</strong></summary>
+
+**Response `200 OK`:**
+```json
+{
+  "id": 0,
+  "name": "string",
+  "cpf": "string",
+  "cellphone": "string",
+  "email": "string"
+}
+```
+
+**Response `401 Unauthorized`:** autenticação necessária.
 </details>
 
 ---
@@ -253,21 +277,40 @@ Swagger UI: `http://localhost:8080/swagger-ui.html`
 **Request body:**
 ```json
 {
-  "accountType": "CHECKING"
+  "type": "CHECKING",
+  "password": "9193544549"
 }
 ```
-> Valores aceitos: `CHECKING` (corrente) ou `SAVINGS` (poupança)
+> Valores aceitos para `type`: `CHECKING` (corrente) ou `SAVINGS` (poupança)
 
 **Response `201 Created`:**
 ```json
 {
-  "accountNumber": "12345-6",
-  "branch": "0001",
-  "accountType": "CHECKING",
-  "balance": 0.00,
-  "overdraftLimit": 500.00
+  "message": "string",
+  "branch": "string",
+  "number": "string"
 }
 ```
+
+**Response `401 Unauthorized`:** não autenticado.
+</details>
+
+<details>
+<summary><code>GET</code> <strong>/api/accounts/me</strong></summary>
+
+**Response `200 OK`:**
+```json
+[
+  {
+    "branch": "string",
+    "number": "string",
+    "type": "CHECKING",
+    "balance": 0
+  }
+]
+```
+
+**Response `401 Unauthorized`:** autenticação necessária.
 </details>
 
 <details>
@@ -276,17 +319,18 @@ Swagger UI: `http://localhost:8080/swagger-ui.html`
 **Request body:**
 ```json
 {
-  "accountNumber": "12345-6",
-  "amount": 500.00
+  "branch": "str",
+  "accountNumber": "string",
+  "amount": 0
 }
 ```
 
 **Response `200 OK`:**
 ```json
 {
-  "message": "Depósito realizado com sucesso!",
+  "message": "string",
   "accountType": "CHECKING",
-  "dateTime": "2025-01-01T12:00:00"
+  "timestamp": "2026-05-01T21:08:51.742Z"
 }
 ```
 </details>
@@ -297,17 +341,19 @@ Swagger UI: `http://localhost:8080/swagger-ui.html`
 **Request body:**
 ```json
 {
-  "accountNumber": "12345-6",
-  "amount": 200.00
+  "branch": "str",
+  "accountNumber": "string",
+  "amount": 0,
+  "password": "string"
 }
 ```
 
 **Response `200 OK`:**
 ```json
 {
-  "message": "Saque realizado com sucesso!",
-  "currentBalance": 300.00,
-  "dateTime": "2025-01-01T12:05:00"
+  "message": "string",
+  "currentBalance": 0,
+  "timestamp": "2026-05-01T21:09:22.355Z"
 }
 ```
 </details>
